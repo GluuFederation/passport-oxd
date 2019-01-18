@@ -1,0 +1,45 @@
+{
+  "name": "passport-oxd",
+  "version": "0.1.0",
+  "description": "OXD Server OpenID Connect OAuth 2.0 authentication strategy for Passport",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha --require test/bootstrap/node test/*.test.js test/**/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GluuFederation/passport-oxd.git"
+  },
+  "keywords": [
+    "OXD",
+    "OXD Server",
+    "Gluu",
+    "Authentication",
+    "OAuth 2.0",
+    "OpenID",
+    "Connect"
+  ],
+  "author": "Meghna Joshi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GluuFederation/passport-oxd/issues"
+  },
+  "homepage": "https://github.com/GluuFederation/passport-oxd#readme",
+  "dependencies": {
+    "passport-strategy": "^1.0.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "util": "^0.11.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-passport-strategy": "^1.0.1",
+    "eslint": "^5.12.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-watch": "^4.0.2",
+    "mocha": "^5.2.0",
+    "nock": "^10.0.6",
+    "urlencode": "^1.1.0"
+  }
+}
