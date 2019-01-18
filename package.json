@@ -20,7 +20,13 @@
     "Connect"
   ],
   "author": "Meghna Joshi",
-  "license": "MIT",
+  "license": "AGPL-3.0",
+  "licenses": [
+    {
+      "type": "AGPL-3.0",
+      "url": "https://raw.githubusercontent.com/GluuFederation/passport-oxd/master/LICENSE"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/GluuFederation/passport-oxd/issues"
   },
