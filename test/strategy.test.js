@@ -1,3 +1,4 @@
+/* global describe, it, expect */
 const chai = require('chai');
 const nock = require('nock');
 const urlEncode = require('urlencode');
@@ -6,8 +7,8 @@ const OXDStrategy = require('../lib/strategy');
 
 describe('Strategy', () => {
   const oxdStrategyOptions = {
-    oxdId: 'dsadsad-sfd-ger6456-ffhfghf',
-    clientId: '@!1736.179E.AA60.16B2!0001!8F7C.B9AB!0008!8A36.24E1.97DE.F4EF',
+    oxdID: 'dsadsad-sfd-ger6456-ffhfghf',
+    clientID: '@!1736.179E.AA60.16B2!0001!8F7C.B9AB!0008!8A36.24E1.97DE.F4EF',
     clientSecret: 'secret',
     oxdServerURL: 'https://localhost:8443',
     issuer: 'https://gluu.local.org'
@@ -18,7 +19,7 @@ describe('Strategy', () => {
     });
 
     it('should be named oxd-passport', () => {
-      expect(strategy.name).to.equal('oxd-passport');
+      expect(strategy.name).to.equal('passport-oxd');
     });
   });
 
@@ -39,7 +40,7 @@ describe('Strategy', () => {
     let authURL;
     const requestedScope = ['openid', 'oxd', 'permission', 'profile', 'email'];
 
-    before((done) => {
+    beforeEach((done) => {
       // Mock Get token
       const accessToken = mockClientTokenRequest(oxdStrategyOptions);
 
@@ -151,7 +152,7 @@ describe('Strategy', () => {
 function mockClientTokenRequest(oxdStrategyOptions) {
   const clientTokenRequest = {
     op_host: oxdStrategyOptions.issuer,
-    client_id: oxdStrategyOptions.clientId,
+    client_id: oxdStrategyOptions.clientID,
     client_secret: oxdStrategyOptions.clientSecret,
     scope: ['openid', 'oxd']
   };
@@ -171,10 +172,10 @@ function mockClientTokenRequest(oxdStrategyOptions) {
 }
 
 function mockGetAuthorizationURL(oxdStrategyOptions, authURLRequest, accessToken) {
-  authURLRequest.oxd_id = oxdStrategyOptions.oxdId; // eslint-disable-line
+  authURLRequest.oxd_id = oxdStrategyOptions.oxdID; // eslint-disable-line
 
   const authURLResponse = {
-    authorization_url: `${oxdStrategyOptions.issuer}/oxauth/restv1/authorize?response_type=code&client_id=${oxdStrategyOptions.clientId}&redirect_uri=https://localhost&scope=${(authURLRequest.scope && authURLRequest.scope.join('+')) || ['openid', 'oxd'].join('+')}&state=473ot4nuqb4ubeokc139raur13&nonce=lbrdgorr974q66q6q9g454iccm`
+    authorization_url: `${oxdStrategyOptions.issuer}/oxauth/restv1/authorize?response_type=code&client_id=${oxdStrategyOptions.clientID}&redirect_uri=https://localhost&scope=${(authURLRequest.scope && authURLRequest.scope.join('+')) || ['openid', 'oxd'].join('+')}&state=473ot4nuqb4ubeokc139raur13&nonce=lbrdgorr974q66q6q9g454iccm`
   };
 
   if (authURLRequest.prompt) {

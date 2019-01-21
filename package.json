@@ -1,7 +1,7 @@
 {
   "name": "passport-oxd",
   "version": "0.1.0",
-  "description": "OXD Server OpenID Connect OAuth 2.0 authentication strategy for Passport",
+  "description": "Passport strategy using the OXD OpenID Connect client middleware ",
   "main": "lib/index.js",
   "scripts": {
     "test": "node_modules/.bin/mocha --require test/bootstrap/node test/*.test.js test/**/*.test.js"
@@ -11,13 +11,14 @@
     "url": "git+https://github.com/GluuFederation/passport-oxd.git"
   },
   "keywords": [
+    "passport",
+    "auth",
     "OXD",
     "OXD Server",
     "Gluu",
     "Authentication",
-    "OAuth 2.0",
-    "OpenID",
-    "Connect"
+    "OpenID Connect",
+    "identity"
   ],
   "author": "Meghna Joshi",
   "license": "AGPL-3.0",
