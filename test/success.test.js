@@ -79,6 +79,68 @@ describe('Strategy Success', () => {
       expect(user.id).to.equal(UserInfo.claims.sub[0]);
     });
   });
+
+  describe('Failed access denied', () => {
+    const strategy = new OXDStrategy(oxdStrategyOptions, (req, accessTokenRespose, userInfoResponse, done) => {
+      console.log('Enter success');
+    });
+
+    let error;
+    const requestedScope = ['openid', 'oxd', 'permission', 'profile', 'email'];
+
+    before((done) => {
+      // Mock Get token
+      chai.passport
+        .use(strategy)
+        .fail((err) => {
+          error = err;
+          done();
+        })
+        .req((req) => {
+          req.session = {};
+          req.query = {
+            error: 'access_denied',
+            error_description: 'something missing'
+          };
+        })
+        .authenticate({ scope: requestedScope });
+    });
+
+    it('should be redirected', () => {
+      expect(error.error).to.equal('access_denied');
+    });
+  });
+
+  describe('Failed with unknown denied error', () => {
+    const strategy = new OXDStrategy(oxdStrategyOptions, (req, accessTokenRespose, userInfoResponse, done) => {
+      console.log('Enter success');
+    });
+
+    let error;
+    const requestedScope = ['openid', 'oxd', 'permission', 'profile', 'email'];
+
+    before((done) => {
+      // Mock Get token
+      chai.passport
+        .use(strategy)
+        .error((err) => {
+          error = err;
+          done();
+        })
+        .req((req) => {
+          req.session = {};
+          req.query = {
+            error: 'server_error',
+            error_description: 'something happening wrong at server side'
+          };
+        })
+        .authenticate({ scope: requestedScope });
+    });
+
+    it('should be redirected', () => {
+      expect(error.code).to.equal('server_error');
+    });
+  });
 });
 
 function mockClientTokenRequest(oxdStrategyOptions) {
