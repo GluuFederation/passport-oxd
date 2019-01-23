@@ -10,7 +10,7 @@ describe('Strategy', () => {
     oxdID: 'dsadsad-sfd-ger6456-ffhfghf',
     clientID: '@!1736.179E.AA60.16B2!0001!8F7C.B9AB!0008!8A36.24E1.97DE.F4EF',
     clientSecret: 'secret',
-    oxdServerURL: 'https://localhost:8443',
+    oxdServer: 'https://localhost:8443',
     issuer: 'https://gluu.local.org'
   };
 
@@ -18,8 +18,8 @@ describe('Strategy', () => {
     const strategy = new OXDStrategy(oxdStrategyOptions, () => {
     });
 
-    it('should be named oxd-passport', () => {
-      expect(strategy.name).to.equal('passport-oxd');
+    it('should be named oxd', () => {
+      expect(strategy.name).to.equal('oxd');
     });
   });
 
@@ -164,7 +164,7 @@ function mockClientTokenRequest(oxdStrategyOptions) {
     refresh_token: 'b75434ff-f465-4b70-92e4-b7ba6b6c58f1'
   };
 
-  nock(oxdStrategyOptions.oxdServerURL)
+  nock(oxdStrategyOptions.oxdServer)
     .post('/get-client-token', clientTokenRequest)
     .reply(200, clientTokenResponse);
 
@@ -190,7 +190,7 @@ function mockGetAuthorizationURL(oxdStrategyOptions, authURLRequest, accessToken
     authURLResponse.authorization_url += `&custom_response_headers=${urlEncode(JSON.stringify(authURLRequest.custom_parameters))}`;
   }
 
-  nock(oxdStrategyOptions.oxdServerURL)
+  nock(oxdStrategyOptions.oxdServer)
     .post('/get-authorization-url', authURLRequest)
     .matchHeader('authorization', `Bearer ${accessToken}`)
     .reply(200, authURLResponse);
