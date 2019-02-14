@@ -71,7 +71,7 @@ OXD Strategy need two parameter.
 |oxdServer|Your OXD server URL. example: https://your.oxd.org:8443|
 |scope(optional)|example: ['openid', 'email', 'profile']|
 
-> Note
+> Note:
 There is no callback URL, because you already set when you create client in OXD.   
 
 2. Verify callback
@@ -81,4 +81,35 @@ Applications must supply a `verify` callback which accepts an `req`, `accessToke
 ### Authenticate Requests
 
 Use `passport.authenticate()` with strategy name `oxd` to authenticate request.
+
+Example, as route middleware in an [Express](http://expressjs.com/) application:
+
+```
+const router = require('express').Router();
+const passport = require('passport');
+
+app.get('/auth/gluu',
+  passport.authenticate('oxd'));
+
+app.get('/auth/gluu/callback',
+  passport.authenticate('oxd', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/profile');
+  });
+```
+
+### Demo
+
+The demo is in [passport-oxd](https://github.com/GluuFederation/passport-oxd/) repository in demo folder.
+
+Use `/demo/config/keys.js` file for OXD Client credentials.
+
+The demo is by run on port 1338. you can change port in `./demo/app.js` file.
+
+As per demo configuration, you need to register client in OXD with `https://localhost:1338/auth/gluu/redirect` authorization_redirect_uri.
+
+### License
+
+[The AGPL-3.0 LICENSE](https://raw.githubusercontent.com/GluuFederation/passport-oxd/master/LICENSE) 
 
