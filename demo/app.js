@@ -45,6 +45,6 @@ app.get('/', (req, res) => {
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 // Start server
-https.createServer(credentials, app).listen(1338, () => {
-  console.log('Application started successfully https://localhost:1338');
+https.createServer(credentials, app).listen(4200, () => {
+  console.log('Application started successfully https://localhost:4200');
 });

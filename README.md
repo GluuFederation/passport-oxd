@@ -105,7 +105,7 @@ The demo is in [passport-oxd](https://github.com/GluuFederation/passport-oxd/) r
 
 Use `/demo/config/keys.js` file for OXD Client credentials.
 
-The demo is by run on port 1338. you can change port in `./demo/app.js` file.
+The demo runs on port 4200. you can change port in `./demo/app.js` file.
 
 As per demo configuration, you need to register client in OXD with `https://localhost:1338/auth/gluu/redirect` authorization_redirect_uri.
 
