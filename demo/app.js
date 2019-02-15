@@ -41,6 +41,13 @@ app.get('/', (req, res) => {
   res.render('home', {user: req.user});
 });
 
+app.use((err, req, res, next) => {
+  console.log(err.stack);
+  if (err) {
+    res.status(500).send({ Error: err.stack });
+  }
+});
+
 // For self-signed certificate.
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
