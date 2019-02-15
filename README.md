@@ -101,13 +101,16 @@ app.get('/auth/gluu/callback',
 
 ### Demo
 
-The demo is in [passport-oxd](https://github.com/GluuFederation/passport-oxd/) repository in demo folder.
 
-Use `/demo/config/keys.js` file for OXD Client credentials.
+The demo is in [passport-oxd](https://github.com/GluuFederation/passport-oxd/) repository in demo folder. Run below command to install dependencies.
+```
+npm install
+```
+Update your OXD Client configuration in `/demo/config/keys.js` file.
 
 The demo runs on port 4200. you can change port in `./demo/app.js` file.
 
-As per demo configuration, you need to register client in OXD with `https://localhost:1338/auth/gluu/redirect` authorization_redirect_uri.
+As per demo configuration, you need to register client in OXD with `https://localhost:4200/auth/gluu/redirect` authorization_redirect_uri.
 
 ### License
 
