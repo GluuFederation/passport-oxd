@@ -1,13 +1,14 @@
 # passport-oxd
 
 Passport strategy using the OXD OpenID Connect client middleware.
- 
+
 It provides facility to authenticate using OpenID Connect Server in your NodeJS application. By plugging into [Passport.js](http://passportjs.org), OpenID Connect authentication can be easily and unobtrusively integrated into any application or framework that supports [Connect](https://github.com/senchalabs/connect#readme)-style middleware, including [Express](http://expressjs.com/).
 
 ## Prerequisites
 
 - Node >= 8.x.x and NPM >= 3.x.x
-- OXD Server >= 4.x.x 
+- OXD Server >= 4.x.x
+- Gluu CE Server >= 3.1.5
 
 ## Install
 
