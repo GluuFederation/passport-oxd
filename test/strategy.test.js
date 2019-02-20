@@ -147,6 +147,41 @@ describe('Strategy', () => {
       expect(url).to.equal(authURL);
     });
   });
+
+  describe('authorization request with config acr_values', () => {
+    const strategy = new OXDStrategy({
+      oxdID: 'dsadsad-sfd-ger6456-ffhfghf',
+      clientID: '@!1736.179E.AA60.16B2!0001!8F7C.B9AB!0008!8A36.24E1.97DE.F4EF',
+      clientSecret: 'secret',
+      oxdServer: 'https://localhost:8443',
+      issuer: 'https://gluu.local.org',
+      acr_values: ['passport_social', 'basic']
+    }, () => {
+    });
+
+    let url;
+    let authURL;
+
+    before((done) => {
+      // Mock Get Token
+      const accessToken = mockClientTokenRequest(oxdStrategyOptions);
+
+      // Mock get authorization url
+      authURL = mockGetAuthorizationURL(oxdStrategyOptions, { scope: ['openid'], acr_values: ['passport_social', 'basic'] }, accessToken);
+
+      chai.passport
+        .use(strategy)
+        .redirect((u) => {
+          url = u;
+          done();
+        })
+        .authenticate({});
+    });
+
+    it('should be redirected', () => {
+      expect(url).to.equal(authURL);
+    });
+  });
 });
 
 function mockClientTokenRequest(oxdStrategyOptions) {
