@@ -71,6 +71,7 @@ OXD Strategy need two parameter.
 |issuer|Your OP Server URL. example: https://your.server.org|
 |oxdServer|Your OXD server URL. example: https://your.oxd.org:8443|
 |scope(optional)|example: ['openid', 'email', 'profile']|
+|acr_values(optional)|example: ['passport_social', 'basic']|
 
 > Note:
 There is no callback URL, because you already set when you create client in OXD.   
@@ -90,7 +91,7 @@ const router = require('express').Router();
 const passport = require('passport');
 
 app.get('/auth/gluu',
-  passport.authenticate('oxd'));
+  passport.authenticate('oxd', OPTIONS));
 
 app.get('/auth/gluu/callback',
   passport.authenticate('oxd', { failureRedirect: '/login' }),
@@ -99,6 +100,14 @@ app.get('/auth/gluu/callback',
     res.redirect('/profile');
   });
 ```
+
+**OPTIONS** are optional. There are some OPTIONS to request to OP Server.
+
+| Options | Description |
+|---------|-------------|
+|scope|It is the OAuth Scope. example: { scope: ['openid', 'email', 'profile'] }|
+|acr_values|It is the acr_values, which you want to request to external OP to serve a specific authentication strategy. example: { acr_values: ['passport_social', 'basic'] }|
+|custom_parameters|You can some custome paramaeter in request as your OP Configuration. example: { custom_parameters: {param1: '1', param2: '2'} }|
 
 ### Demo
 
