@@ -4,6 +4,7 @@ module.exports = {
     clientSecret: '435e9cfb-1eea-4e24-a5a2-d997c01808cd',
     oxdID: 'f19c3b25-391a-4a83-a90f-eaae56f2efba',
     issuer: 'https://gluu.local.org',
-    oxdServer: 'https://localhost:8553'
+    oxdServer: 'https://localhost:8553',
+    redirect_uri: 'http://localhost:4200'
   }
 };
