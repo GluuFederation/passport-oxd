@@ -33,9 +33,8 @@
   },
   "homepage": "https://github.com/GluuFederation/passport-oxd#readme",
   "dependencies": {
+    "got": "^10.6.0",
     "passport-strategy": "^1.0.0",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.2",
     "util": "^0.11.1"
   },
   "devDependencies": {
@@ -46,7 +45,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-watch": "^4.0.2",
     "mocha": "^5.2.0",
-    "nock": "^10.0.6",
+    "nock": "^12.0.3",
     "urlencode": "^1.1.0"
   }
 }
