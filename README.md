@@ -6,9 +6,9 @@ It provides facility to authenticate using OpenID Connect Server in your NodeJS 
 
 ## Prerequisites
 
-- Node >= 8.x.x and NPM >= 3.x.x
+- Node >= 10.x.x and NPM >= 6.x.x
 - OXD Server >= 4.x.x
-- Gluu CE Server >= 3.1.5
+- Gluu CE Server >= 4.1.0
 
 ## Install
 
@@ -29,7 +29,7 @@ curl -X POST \
   -H 'Content-Type: application/json' \
   -d '{
     "op_host" : "https://<your_op_server.com>",
-    "authorization_redirect_uri": "https://localhost:1338/auth/gluu/redirect",
+    "redirect_uris": ["https://localhost:1338/auth/gluu/redirect"],
     "scope" : ["openid", "oxd", "profile", "email", "address"],
     "grant_types": ["authorization_code", "client_credentials"],
     "client_name": "<client_name>"
@@ -38,7 +38,7 @@ curl -X POST \
 
 **register-site** API returns oxd_id, client_id and client_secret in response. which you need to use in passport-oxd configuration.
 
-**authorization_redirect_uri** is your client application **callbackURL**. After authnetication, OP server will redirect you on this URL.
+**redirect_uris** is your client application **callbackURL**. After authnetication, OP server will redirect you on this URL.
 
 ### Configure Strategy
 
@@ -48,12 +48,15 @@ const OXDStrategy = require('passport-oxd');
 
 passport.use(
   new OXDStrategy({
+   // options
       clientID: 'OXD_OP_CLIENT_ID',
       clientSecret: 'OXD_OP_CLIENT_SECRET',
       oxdID: 'OXD_ID',
       issuer: 'OP_SERVER_URL',
       oxdServer: 'OXD_SERVER_URL'
-  }, (req, accessTokenResponse, userInfoResponse, done) => {
+  }, 
+  // verify callback 
+  (req, accessTokenResponse, userInfoResponse, done) => {
     
   })
 );
@@ -68,13 +71,14 @@ OXD Strategy need two parameter.
 |oxdID|OXD Client's oxd_id, which you get from register-site API. register-site API make new client for you and return client credentials (oxd_id, client_id, client_secret, etc...).|
 |clientID|OXD OP CLient's client ID|
 |clientSecret|OXD OP CLient's client Secret|
-|issuer|Your OP Server URL. example: https://your.server.org|
-|oxdServer|Your OXD server URL. example: https://your.oxd.org:8443|
-|scope(optional)|example: ['openid', 'email', 'profile']|
-|acr_values(optional)|example: ['passport_social', 'basic']|
-
-> Note:
-There is no callback URL, because you already set when you create client in OXD.   
+|issuer|Your OP Server URL. example: `https://your.server.org`|
+|oxdServer|Your OXD server URL. example: `https://your.oxd.org:8443`|
+|scope(optional)|example: `['openid', 'email', 'profile']`|
+|acr_values(optional)|example: `['passport_social', 'basic']`|
+|redirect_uri(optional)|example: `https://localhost:4200/auth/gluu/redirect`|
+|params(optional)|example: `params: { max_age: 1000 }`|
+|prompt(optional)|example: `prompt: 'login'`|
+|custom_parameters(optional)|Used to pass custom parameters|
 
 2. Verify callback
 
@@ -105,9 +109,12 @@ app.get('/auth/gluu/callback',
 
 | Options | Description |
 |---------|-------------|
-|scope|It is the OAuth Scope. example: { scope: ['openid', 'email', 'profile'] }|
-|acr_values|It is the acr_values, which you want to request to external OP to serve a specific authentication strategy. example: { acr_values: ['passport_social', 'basic'] }|
-|custom_parameters|You can some custome paramaeter in request as your OP Configuration. example: { custom_parameters: {param1: '1', param2: '2'} }|
+|scope|It is the OAuth Scope. example: `{ scope: ['openid', 'email', 'profile'] }`|
+|acr_values|It is the acr_values, which you want to request to external OP to serve a specific authentication strategy. example: `{ acr_values: ['passport_social', 'basic']` }|
+|custom_parameters|You can some custome paramaeter in request as your OP Configuration. example: `{ custom_parameters: {param1: '1', param2: '2'} }`|
+|redirect_uri(optional)|example: `https://localhost:4200/auth/gluu/redirect`|
+|params(optional)|example: `params: { max_age: 1000 }`|
+|prompt(optional)|example: `prompt: 'login'`|
 
 ### Demo
 
